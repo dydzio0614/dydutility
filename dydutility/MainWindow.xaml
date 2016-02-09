@@ -1,0 +1,16 @@
+﻿<Window x:Class="dydutility.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dydutility"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <local:Utility x:Key="dydutility"/>
+    </Window.Resources>
+    <Grid>
+        <Button x:Name="button" Content="TEST" HorizontalAlignment="Left" Margin="45,53,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+</Window>
