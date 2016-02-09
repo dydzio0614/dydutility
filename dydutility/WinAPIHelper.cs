@@ -20,9 +20,11 @@ namespace dydutility
 
         //WinAPI functions
         [DllImport("user32", EntryPoint = "SendMessageA")]
-        public static extern IntPtr SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
+        public static extern int SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
         [DllImport("user32", EntryPoint = "SendMessageA")]
-        public static extern IntPtr SendMessage(IntPtr hwnd, int wMsg, int wParam, string lParam);
+        public static extern int SendMessage(IntPtr hwnd, int wMsg, int wParam, StringBuilder lParam);
+        [DllImport("user32", EntryPoint = "SendMessageA")]
+        public static extern int SendMessage(IntPtr hwnd, int wMsg, int wParam, string lParam);
         [DllImport("user32")]
         public static extern IntPtr OpenProcess(int accessBitmask, bool inheritHandle, int procId);
         [DllImport("user32")]

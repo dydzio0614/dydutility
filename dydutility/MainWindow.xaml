@@ -5,12 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dydutility"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="480" Width="640">
     <Window.Resources>
         <local:Utility x:Key="dydutility"/>
     </Window.Resources>
     <Grid>
-        <Button x:Name="button" Content="TEST" HorizontalAlignment="Left" Margin="45,53,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button" Content="TESTMESSAGE" HorizontalAlignment="Left" Margin="45,110,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="button1" Content="HOOK GAME" HorizontalAlignment="Left" Margin="45,30,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="160,33,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <Button x:Name="button2" Content="SEND TO CHAT" HorizontalAlignment="Left" Margin="45,185,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="45" Margin="145,185,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="345"/>
+        <Button x:Name="button3" Content="CONSOLE LOG" HorizontalAlignment="Left" Margin="45,293,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click"/>
+        <ScrollViewer x:Name="chatViewer" HorizontalAlignment="Left" Height="185" Margin="145,255,0,0" VerticalAlignment="Top" Width="477"/>
+
 
     </Grid>
 </Window>

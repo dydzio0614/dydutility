@@ -29,5 +29,19 @@ namespace dydutility
             else
                 return false;
         }
+
+        public string ReadConsole()
+        {
+            StringBuilder temp = new StringBuilder(50000);
+            int consoleLength = WinAPIHelper.SendMessage(consoleReadHandle, WinAPIHelper.WM_GETTEXT, 50000, temp);
+            
+            return temp.ToString();
+        }
+
+        public void SendChatMessage(string msg)
+        {
+            WinAPIHelper.SendMessage(consoleWriteHandle, WinAPIHelper.WM_SETTEXT, 0, "say ^0(^1DU^0) ^2" + msg);
+            WinAPIHelper.SendMessage(consoleWriteHandle, 258, 13, 0);
+        }
     }
 }
