@@ -16,7 +16,8 @@
         <Button x:Name="button2" Content="SEND TO CHAT" HorizontalAlignment="Left" Margin="45,185,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="45" Margin="145,185,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="345"/>
         <Button x:Name="button3" Content="CONSOLE LOG" HorizontalAlignment="Left" Margin="45,293,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click"/>
-        <ScrollViewer x:Name="chatViewer" HorizontalAlignment="Left" Height="185" Margin="145,255,0,0" VerticalAlignment="Top" Width="477"/>
+        <TextBox x:Name="chatViewer" HorizontalAlignment="Left" Height="170" Margin="145,270,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="477" />
+        <Button x:Name="button4" Content="DONATEPLZ" HorizontalAlignment="Left" Margin="460,70,0,0" VerticalAlignment="Top" Width="75" Click="button4_Click"/>
 
 
     </Grid>
