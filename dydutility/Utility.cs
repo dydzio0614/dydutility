@@ -16,6 +16,7 @@ namespace dydutility
 
         public bool GameHooked { get { return gameHooked; } }
         private bool privateMode = false;
+        private bool restrictMode = false;
 
         /*private*/ public readonly PlayerData playerData = new PlayerData();
 
@@ -49,6 +50,8 @@ namespace dydutility
             IntPtr gamedataOffset = new IntPtr();
                 WinAPIHelper.ReadProcessMemory(gameProcessHandle, (IntPtr)0x977d54 + 4 * (1131 + buffer.ToInt32()), ref gamedataOffset, 4, IntPtr.Zero);
 
+            if (gamedataOffset.ToInt32() == 0)
+                return;
 
                 StringBuilder clientData = new StringBuilder(2000);
                 WinAPIHelper.ReadProcessMemory(gameProcessHandle, new IntPtr(0x9797e4 + gamedataOffset.ToInt32()), clientData, 1024, IntPtr.Zero);
@@ -116,6 +119,20 @@ namespace dydutility
             if (chatLine.Contains("!recover"))
             {
                 GetGameData();
+            }
+
+            if(chatLine.Contains("!norestrict"))
+            {
+                if (restrictMode)
+                {
+                    restrictMode = false;
+                    ExecuteConsoleCommand("echo ^1Restrict mode off");
+                }
+                else
+                {
+                    restrictMode = true;
+                    ExecuteConsoleCommand("echo ^1Restrict mode on");
+                }
             }
 
             if (chatLine.Contains("!mode"))
@@ -264,6 +281,9 @@ namespace dydutility
 
         public void SendChatMessage(string msg)
         {
+            if (restrictMode)
+                System.Threading.Thread.Sleep(1000);
+
             ExecuteConsoleCommand("say " + msg);
         }
 
