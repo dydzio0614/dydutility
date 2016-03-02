@@ -18,7 +18,7 @@ namespace dydutility
         private bool privateMode = false;
         private bool restrictMode = false;
 
-        /*private*/ public readonly PlayerData playerData = new PlayerData();
+        private readonly PlayerData playerData = new PlayerData();
 
         public string StateMsg { get; private set; }
 
@@ -56,7 +56,7 @@ namespace dydutility
                 StringBuilder clientData = new StringBuilder(2000);
                 WinAPIHelper.ReadProcessMemory(gameProcessHandle, new IntPtr(0x9797e4 + gamedataOffset.ToInt32()), clientData, 1024, IntPtr.Zero);
             string[] stats = clientData.ToString().Split('\\');
-            playerData.Name = RemoveColorModifiers(stats[1]);
+            playerData.Name = RemoveColorModifiers(stats[1]); //hardcoded name offset
         }
 
         public string ReadConsole()
@@ -85,7 +85,6 @@ namespace dydutility
 
         public void ProcessLastChatLine(string chatLine)
         {
-
             if(chatLine.StartsWith(">------>"))
             {
                 return;
@@ -103,19 +102,7 @@ namespace dydutility
             chatLine = chatLine.ToLower();
 
             if (ProcessMinorCommands(chatLine)) return;
-            //TEMP CMDS
-           /* else if (chatLine.Contains("@jusendto"))
-            {
-                string[] prms = chatLine.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                ExecuteConsoleCommand("sendto " + prms[4] + " " + prms[3]);
-            }
-
-            else if (chatLine.Contains("@jukill"))
-            {
-                string[] prms = chatLine.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                ExecuteConsoleCommand("killother " + prms[3]);
-            }*/
-            //
+            
             if (chatLine.Contains("!recover"))
             {
                 GetGameData();
@@ -147,6 +134,74 @@ namespace dydutility
                     privateMode = true;
                     SendChatMessage("^0DU^1 - public mode off");
                 }
+            }
+
+            /*if(chatLine.Contains("!boom"))
+            {
+                ExecuteConsoleCommand("hyperbomb");
+            }*/
+            if(chatLine.Contains("!scaleall"))
+            {
+                string[] prms = chatLine.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < 32; i++)
+                {
+                    if (privateMode)
+                    {
+                        ExecuteConsoleCommand("scale " + i + " " + prms[1]);
+                    }
+                    else
+                        ExecuteConsoleCommand("scale " + i + " " + prms[3]);
+                }
+            }
+
+            if (chatLine.Contains("!forward"))
+            {
+                ExecuteConsoleCommand("-back");
+                ExecuteConsoleCommand("+forward");
+            }
+
+            if (chatLine.Contains("!back"))
+            {
+                ExecuteConsoleCommand("-forward");
+                ExecuteConsoleCommand("+back");
+            }
+
+            if (chatLine.Contains("!left"))
+            {
+                ExecuteConsoleCommand("-right");
+                ExecuteConsoleCommand("+left");
+            }
+
+            if (chatLine.Contains("!right"))
+            {
+                ExecuteConsoleCommand("-left");
+                ExecuteConsoleCommand("+right");
+            }
+
+            if (chatLine.Contains("!jump"))
+            {
+                ExecuteConsoleCommand("+moveup");
+                System.Threading.Thread.Sleep(50);
+                ExecuteConsoleCommand("-moveup");
+            }
+
+            if (chatLine.Contains("!heal"))
+            {
+                ExecuteConsoleCommand("force_heal");
+            }
+
+            if (chatLine.Contains("!stop"))
+            {
+                ExecuteConsoleCommand("-forward");
+                ExecuteConsoleCommand("-back");
+                ExecuteConsoleCommand("-left");
+                ExecuteConsoleCommand("-right");
+                ExecuteConsoleCommand("-attack");
+            }
+
+            if (chatLine.Contains("!attack"))
+            {
+                ExecuteConsoleCommand("+attack");
             }
 
             if (chatLine.Contains("!tour"))

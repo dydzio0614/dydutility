@@ -12,9 +12,9 @@ namespace dydutility
         {
             bool cmdFound = true;
 
-            if (chatLine.Contains("!about"))
+            if (chatLine.Contains("!about") || chatLine.Contains(playerData.Name + " entered the game"))
             {
-                SendChatMessage("^0Dyd^1zio's ^6Utility^1 - v. 0.0.6a");
+                SendChatMessage("^0Dyd^1zio's ^6Utility^1 - v. 0.0.7a");
             }
             else if (chatLine.Contains("!paper"))
             {
@@ -147,6 +147,10 @@ namespace dydutility
             else if (chatLine.Contains("!animal"))
             {
                 SendChatMessage("^0Anim^1@^0l^3 - active geek player, weak saberist, runs a faction");
+            }
+            else if (chatLine.Contains("!nakiner"))
+            {
+                SendChatMessage("^6n^7akiner - funny and helpful player");
             }
             else if (chatLine.Contains("!joke"))
             {
@@ -294,7 +298,11 @@ namespace dydutility
             else if (chatLine.Contains("bye dyd") || chatLine.Contains("bb dyd") || chatLine.Contains("cya dyd"))
             {
                 SendChatMessage("bye");
-            }            
+            }
+            else if (chatLine.Contains("what is this"))
+            {
+                SendChatMessage("This is Jedi Academy server with lugormod");
+            }
             else
                 cmdFound = false;
 
