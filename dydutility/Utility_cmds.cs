@@ -14,47 +14,47 @@ namespace dydutility
 
             if (chatLine.Contains("!about") || chatLine.Contains(playerData.Name + " entered the game"))
             {
-                SendChatMessage("^0Dyd^1zio's ^6Utility^1 - v. 0.0.7a");
+                SendChatMessage("^0Dyd^1zio's ^6Utility^1 - v. 0.0.7.1a");
             }
             else if (chatLine.Contains("!paper"))
             {
-                SendChatMessage("^7Paper ^3aka Alex Deane - one of worst shit on EU Lugormod. 0/10");
+                SendChatMessage("^7Paper ^3aka Alex Deane - one of worst shit on EU Lugormod. 0/10. Recently became more tolerable");
             }
             else if (chatLine.Contains("!rico"))
             {
-                SendChatMessage("^7Rico^3 'dumpling maker' - some ancient player I do not know too well. Calm and quiet");
+                SendChatMessage("^2R^0ico^3 - KFC chef, overall OK guy. Ancient player with long lugormod past");
             }
             else if (chatLine.Contains("!mrk"))
             {
-                SendChatMessage("^7Mr^0.^4K^3 - cool and very clever dude. Nice new friend of myself.");
+                SendChatMessage("^7Mr^0.^4K^3 - cool and very clever guy. Good friend. Maintainer of webchat and translator");
             }
             else if (chatLine.Contains("!razot"))
             {
-                SendChatMessage("^7Umm...");
+                SendChatMessage("^7Does this guy even play anymore? He keeps returning for a while to go back to cs:go 1 week later");
             }
             else if (chatLine.Contains("!arsa"))
             {
-                SendChatMessage("^1arsa^5 - typical decent saberist. Generic player.");
+                SendChatMessage("^1arsa^5 - strong skilltard saberist. Mean guy with stereotypal lugormod behavior");
             }
             else if (chatLine.Contains("!pain"))
             {
-                SendChatMessage("^0païn^1 - moderate staffer. Nothing much to say about him.");
+                SendChatMessage("^0païn^1 - decent staffer. Nothing more to say about him");
             }
             else if (chatLine.Contains("!exodus"))
             {
-                SendChatMessage("^1Exodus^7 - 24/7 jkadst_hudx user");
+                SendChatMessage("^1Exodus^7 - 24/7 jkadst_hudx user. Fan of islamic nasheeds made by Lana Lmorhafato");
             }
             else if (chatLine.Contains("!dog"))
             {
-                SendChatMessage("^7dog^3 - decent and fair player");
+                SendChatMessage("^7dog^3 - decent and usually fair player");
             }
             else if (chatLine.Contains("!creature"))
             {
-                SendChatMessage("^0creature^1 - really strong player, but nothing more");
+                SendChatMessage("^0creature^1 - really strong player, but nothing more. Recently less active");
             }
             else if (chatLine.Contains("!alcany"))
             {
-                SendChatMessage("^5A^7lcany^5 - moderate saberist with annoying jump attacks.");
+                SendChatMessage("^5A^7lcany^5 - moderate saberist with annoying jump attacks. Naive Trump supporter");
             }
             else if (chatLine.Contains("!donkey"))
             {
@@ -62,11 +62,11 @@ namespace dydutility
             }
             else if (chatLine.Contains("!kalthani"))
             {
-                SendChatMessage("^1K^0althani^6 - expert at joining one clan/faction multiple times. Low tier but fair player.");
+                SendChatMessage("^1K^0althani^6 - expert at joining one clan/faction multiple times. Low tier but fair player");
             }
             else if (chatLine.Contains("!pete"))
             {
-                SendChatMessage("^7pete^4`^3 - lol, ridiculous player, one of funniest I met. Epic joker and good player");
+                SendChatMessage("^7pete^4`^3 - ridiculous player, funniest guy on server. Epic troll and very good merc");
             }
             else if (chatLine.Contains("!capricorn"))
             {
@@ -78,7 +78,7 @@ namespace dydutility
             }
             else if (chatLine.Contains("!bob"))
             {
-                SendChatMessage("^7bob^5 - good and smart player, though he increases introvertism ratio on the server");
+                SendChatMessage("^7bob^5 - good and smart player, server king that rarely wastes time on citizens");
             }
             else if (chatLine.Contains("!ufo"))
             {
@@ -90,7 +90,7 @@ namespace dydutility
             }
             else if (chatLine.Contains("!lumaya"))
             {
-                SendChatMessage("^5L^7umaya^6 - good saberist, fair player, tends to argue too much");
+                SendChatMessage("^5L^7umaya^6 - good saberist, argues too much, he was less annoying in the past");
             }
             else if (chatLine.Contains("!serbip1"))
             {
@@ -102,15 +102,19 @@ namespace dydutility
             }
             else if (chatLine.Contains("!zenonk"))
             {
-                SendChatMessage("^4Z^7enonk^3 - ex-leader of apprentices, saber amateur with fair behavior");
+                SendChatMessage("^4Z^7enonk^3 - ex-leader of apprentices, saber amateur with fair behavior. He died - cannot be seen on server");
             }
             else if (chatLine.Contains("!elite"))
             {
-                SendChatMessage("^7elite^2 - competent player, who does not even compete in many chat wars");
+                SendChatMessage("^7elite^2 - competent player, who avoids some chat wars. Definitely more tolerable than Arsa, Kitty etc");
             }
             else if (chatLine.Contains("!michael"))
             {
-                SendChatMessage("^5Michael^7 - low tier player, tends to behave like a kid");
+                SendChatMessage("^5Michael^7 - low tier player, kid who tried to get me banned for his own failures");
+            }
+            else if (chatLine.Contains("!paweli"))
+            {
+                SendChatMessage("check !rageh for description");
             }
             else if (chatLine.Contains("!rageh"))
             {
@@ -118,11 +122,11 @@ namespace dydutility
             }
             else if (chatLine.Contains("!ursa"))
             {
-                SendChatMessage("^1Ursa^6 - strong, fair and clever, not a player to complain about");
+                SendChatMessage("^1Ursa^6 - strong, fair and clever, not a player to complain about. Rarely active");
             }
             else if (chatLine.Contains("!icecream"))
             {
-                SendChatMessage("^3I^5c^6e^3C^5r^6e^3a^5m^4 - average fighter, pretty peaceful");
+                SendChatMessage("^3I^5c^6e^3C^5r^6e^3a^5m^4 - fairly good fighter, pretty peaceful");
             }
             else if (chatLine.Contains("!apprentices"))
             {
@@ -130,11 +134,11 @@ namespace dydutility
             }
             else if (chatLine.Contains("!dydzio"))
             {
-                SendChatMessage("^0Dyd^1zio^3 - he is my master, he created me in C# with WPF framework using WinAPI dllimport.");
+                SendChatMessage("^0Dyd^1zio^3 - he is my master, he created me in C# with WPF framework using WinAPI dllimport. I am happy utility now!");
             }
             else if (chatLine.Contains("!kitty"))
             {
-                SendChatMessage("^7k!tty^4 - this player is same as arsa imo, both in skills and behavior");
+                SendChatMessage("^7k!tty^4 - this player is same as arsa imo, both in skills and behavior. Hunting new players makes him happy");
             }
             else if (chatLine.Contains("!darthmaull"))
             {
@@ -142,15 +146,39 @@ namespace dydutility
             }
             else if (chatLine.Contains("!cyanide"))
             {
-                SendChatMessage("^6CYANIDE^3 - total horse shit, iq and mentality worse than lugormod stereotypal, insults admins + others");
+                SendChatMessage("^6CYANIDE^3 - total horse shit, iq and mentality worse than lugormod stereotypal");
             }
             else if (chatLine.Contains("!animal"))
             {
-                SendChatMessage("^0Anim^1@^0l^3 - active geek player, weak saberist, runs a faction");
+                SendChatMessage("^0Anim^1@^0l^3 - recently inactive geek player, rather weak saberist, runs a faction");
             }
             else if (chatLine.Contains("!nakiner"))
             {
-                SendChatMessage("^6n^7akiner - funny and helpful player");
+                SendChatMessage("^6n^7akiner - funny and helpful player, however suffering from RUtard syndrome");
+            }
+            else if (chatLine.Contains("!jamie"))
+            {
+                SendChatMessage("^2J^0ä^2m^0ï^2e^0.^20^6 - (LEGEND) failtard, bragging about nonexistant skills and 'making maps' by changing author names");
+            }
+            else if (chatLine.Contains("!gog"))
+            {
+                SendChatMessage("^1gog^2 - Very good player with typical annoying polish attutude");
+            }
+            else if (chatLine.Contains("!petri"))
+            {
+                SendChatMessage("^4dsbr^7_petri^3 - Average player, czech young guy, rather smart");
+            }
+            else if (chatLine.Contains("!kasme"))
+            {
+                SendChatMessage("^7kasme^5 - Retarded as hell, spammer kid and wannabe admin with 'intelectually_disabled' privileges");
+            }
+            else if (chatLine.Contains("!raptor"))
+            {
+                SendChatMessage("^7RAPTOR^2 - Average player with super high self esteem.");
+            }
+            else if (chatLine.Contains("!ryder"))
+            {
+                SendChatMessage("^0RYDER^1 - Banned excessive lamer. Spawnrapist, griphunter, late night ninja newbiekiller.");
             }
             else if (chatLine.Contains("!joke"))
             {

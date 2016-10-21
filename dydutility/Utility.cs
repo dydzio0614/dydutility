@@ -85,7 +85,7 @@ namespace dydutility
 
         public void ProcessLastChatLine(string chatLine)
         {
-            if(chatLine.StartsWith(">------>"))
+            if(chatLine.StartsWith(">------>") || chatLine.StartsWith("3======"))
             {
                 return;
             }
@@ -108,7 +108,7 @@ namespace dydutility
                 GetGameData();
             }
 
-            if(chatLine.Contains("!norestrict"))
+            if(chatLine.Contains("!restrict"))
             {
                 if (restrictMode)
                 {
@@ -136,10 +136,6 @@ namespace dydutility
                 }
             }
 
-            /*if(chatLine.Contains("!boom"))
-            {
-                ExecuteConsoleCommand("hyperbomb");
-            }*/
             if(chatLine.Contains("!scaleall"))
             {
                 string[] prms = chatLine.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
