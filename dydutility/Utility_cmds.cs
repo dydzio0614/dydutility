@@ -12,9 +12,9 @@ namespace dydutility
         {
             bool cmdFound = true;
 
-            if (chatLine.Contains("!about") || chatLine.Contains(playerData.Name + " entered the game"))
+            if (chatLine.Contains("!about") || chatLine.Contains(userData.Name + " entered the game"))
             {
-                SendChatMessage("^0Dyd^1zio's ^6Utility^1 - v. 0.0.7.1a");
+                SendChatMessage("^0Dyd^1zio's ^6Utility^1 - v. 0.0.8a");
             }
             else if (chatLine.Contains("!paper"))
             {

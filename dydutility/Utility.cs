@@ -17,8 +17,9 @@ namespace dydutility
         public bool GameHooked { get { return gameHooked; } }
         private bool privateMode = false;
         private bool restrictMode = false;
+        private bool teleportMode = false;
 
-        private readonly PlayerData playerData = new PlayerData();
+        private readonly PlayerData userData = new PlayerData();
 
         public string StateMsg { get; private set; }
 
@@ -42,21 +43,29 @@ namespace dydutility
                 return false;
         }
 
-        public void GetGameData()
+        public void GetUserData()
         {
             IntPtr buffer = new IntPtr();
-            WinAPIHelper.ReadProcessMemory(gameProcessHandle, (IntPtr)HookHelper.PlayerClientNumAddress, ref buffer, 4, IntPtr.Zero); //recheck for correctness
-            playerData.ClientNum = buffer.ToInt32();
-            IntPtr gamedataOffset = new IntPtr();
-                WinAPIHelper.ReadProcessMemory(gameProcessHandle, (IntPtr)0x977d54 + 4 * (1131 + buffer.ToInt32()), ref gamedataOffset, 4, IntPtr.Zero);
+            WinAPIHelper.ReadProcessMemory(gameProcessHandle, (IntPtr)HookHelper.PlayerClientNumAddress, ref buffer, 4, IntPtr.Zero); //get clientnum
+            userData.ClientNum = buffer.ToInt32();
+            userData.Name = GetPlayerName(userData.ClientNum);
+        }
 
-            if (gamedataOffset.ToInt32() == 0)
-                return;
+        public string GetPlayerName(int clientNum)
+        {
+            if (clientNum < 0 && clientNum >= 32)
+                return null;
 
-                StringBuilder clientData = new StringBuilder(2000);
-                WinAPIHelper.ReadProcessMemory(gameProcessHandle, new IntPtr(0x9797e4 + gamedataOffset.ToInt32()), clientData, 1024, IntPtr.Zero);
+            IntPtr playerdataOffset = new IntPtr();
+            WinAPIHelper.ReadProcessMemory(gameProcessHandle, (IntPtr)0x977d54 + 4 * (1131 + clientNum), ref playerdataOffset, 4, IntPtr.Zero); //get
+
+            if (playerdataOffset.ToInt32() == 0)
+                return null;
+
+            StringBuilder clientData = new StringBuilder(2000);
+            WinAPIHelper.ReadProcessMemory(gameProcessHandle, new IntPtr(0x9797e4 + playerdataOffset.ToInt32()), clientData, 1024, IntPtr.Zero);
             string[] stats = clientData.ToString().Split('\\');
-            playerData.Name = RemoveColorModifiers(stats[1]); //hardcoded name offset
+            return RemoveColorModifiers(stats[1]); //hardcoded name offset
         }
 
         public string ReadConsole()
@@ -93,7 +102,7 @@ namespace dydutility
             if(privateMode)
             {
                 //if (!chatLine.Contains(playerData.Name + ":")) return; //placeholder primitive algorithm
-                string[] lineDivided = System.Text.RegularExpressions.Regex.Split(chatLine, playerData.Name + ":");
+                string[] lineDivided = System.Text.RegularExpressions.Regex.Split(chatLine, userData.Name + ":");
                 if (lineDivided.Length != 2) return;
                 if (lineDivided[0].Contains(':')) return;
                 else chatLine = lineDivided[1];
@@ -105,7 +114,7 @@ namespace dydutility
             
             if (chatLine.Contains("!recover"))
             {
-                GetGameData();
+                GetUserData();
             }
 
             if(chatLine.Contains("!restrict"))
@@ -133,6 +142,37 @@ namespace dydutility
                 {
                     privateMode = true;
                     SendChatMessage("^0DU^1 - public mode off");
+                }
+            }
+
+            if (chatLine.Contains("!telemode"))
+            {
+                if (teleportMode)
+                {
+                    teleportMode = false;
+                    SendChatMessage("^0DU^1 - teleport mode off");
+                }
+                else
+                {
+                    teleportMode = true;
+                    SendChatMessage("^0DU^1 - teleport mode on");
+
+                    if (privateMode)
+                        ExecuteConsoleCommand("echo ^1Warning! Disable private mode to let teleport mode work!");
+                }
+            }
+
+            if(chatLine.Contains("me"))
+            {
+                if(teleportMode)
+                {
+                    string[] lineDivided = chatLine.Split(':');
+                    if (lineDivided.Length == 2 && lineDivided[1] == " me")
+                    {
+                        string clientIDRaw = lineDivided[0].Split(' ')[0];
+                        string clientID = clientIDRaw.Trim('(', ')');
+                        ExecuteConsoleCommand("gethere " + clientID);
+                    }
                 }
             }
 

@@ -44,7 +44,7 @@ namespace dydutility
         {
             if(dydUtility.GameHooked)
             {
-                dydUtility.GetGameData();
+                dydUtility.GetUserData();
             }
         }
 

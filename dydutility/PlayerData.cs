@@ -10,5 +10,10 @@ namespace dydutility
     {
         public int ClientNum { get; set; }
         public string Name { get; set; }
+
+        public override string ToString()
+        {
+            return "Client ID: " + ClientNum + ", Name:" + Name;
+        }
     }
 }
