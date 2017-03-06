@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Json;
+using ChatterBotAPI;
+using System.IO;
 
 namespace dydutility
 {
-    partial class Utility
+    public partial class Utility
     {
         private IntPtr consoleWriteHandle;
         private IntPtr consoleReadHandle;
@@ -26,6 +29,26 @@ namespace dydutility
         private int? duelRestrict = null;
 
         private List<string> tournamentParticipants = new List<string>();
+        private List<BonusCommand> customCommands;
+
+        private ChatterBotSession cleverBotSession;
+
+        public Utility()
+        {
+            ChatterBotFactory botFactory = new ChatterBotFactory();
+            ChatterBot bot = botFactory.Create(ChatterBotType.CLEVERBOT);
+            cleverBotSession = bot.CreateSession();
+
+            if (File.Exists("commands.json"))
+            {
+                using (FileStream commandsFile = new FileStream("commands.json", FileMode.Open, FileAccess.Read))
+                {
+                    DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(BonusCommandList));
+                    BonusCommandList output = deserializer.ReadObject(commandsFile) as BonusCommandList;
+                    customCommands = output?.CommandList;
+                }
+            }
+        }
 
         public bool FindJKAConsole()
         {
@@ -101,11 +124,14 @@ namespace dydutility
 
             if(privateMode)
             {
-                //if (!chatLine.Contains(playerData.Name + ":")) return; //placeholder primitive algorithm
                 string[] lineDivided = System.Text.RegularExpressions.Regex.Split(chatLine, userData.Name + ":");
-                if (lineDivided.Length != 2) return;
-                if (lineDivided[0].Contains(':')) return;
-                else chatLine = lineDivided[1];
+                if (lineDivided.Length != 2 || lineDivided[0].Contains(':')) return;
+                lineDivided[0] = lineDivided[0].Trim();
+                lineDivided[0] = lineDivided[0].Trim('(', ')');
+                int targetClientNum;
+                if (int.TryParse(lineDivided[0], out targetClientNum) && targetClientNum == userData.ClientNum)
+                    chatLine = lineDivided[1];
+                else return;
             }
 
             chatLine = chatLine.ToLower();
@@ -176,7 +202,37 @@ namespace dydutility
                 }
             }
 
-            if(chatLine.Contains("!scaleall"))
+            if (chatLine.Contains("!translate"))
+            {
+                string[] lineDivided = chatLine.Split(':');
+                if (lineDivided.Length == 2 && lineDivided[1].StartsWith( " !translate "))
+                {
+                    string rawText = lineDivided[1].Replace(" !translate ", "");
+
+                    SendChatMessage(EngToNoob(rawText));
+                }
+            }
+
+            if (chatLine.Contains("!utility"))
+            {
+                string[] lineDivided = chatLine.Split(':');
+                if (lineDivided.Length == 2 && lineDivided[1].StartsWith(" !utility "))
+                {
+                    string rawText = lineDivided[1].Replace(" !utility ", "");
+                    try
+                    {
+                        string response = cleverBotSession.Think(rawText);
+                        SendChatMessage("^0DU^1 - " + response);
+                    }
+                    catch (System.Net.WebException ex)
+                    {
+                        System.Diagnostics.Debug.Print("Error occured while getting bot response.");
+                        SendChatMessage(ex.Message);
+                    }                    
+                }
+            }
+
+            if (chatLine.Contains("!scaleall"))
             {
                 string[] prms = chatLine.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < 32; i++)

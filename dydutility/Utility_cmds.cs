@@ -3,18 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace dydutility
 {
-    partial class Utility
+    public partial class Utility
     {
         public bool ProcessMinorCommands(string chatLine)
         {
             bool cmdFound = true;
 
+            if (customCommands != null)
+            {
+                foreach (BonusCommand command in customCommands)
+                {
+                    if (chatLine.Contains("!" + command.Name.ToLower()))
+                    {
+                        SendChatMessage(command.Response);
+                        break;
+                    }
+                }
+            }
+
             if (chatLine.Contains("!about") || chatLine.Contains(userData.Name + " entered the game"))
             {
-                SendChatMessage("^0Dyd^1zio's ^6Utility^1 - v. 0.0.8a");
+                SendChatMessage("^0Dyd^1zio's ^6Utility^1 - v. 0.0.9a");
             }
             else if (chatLine.Contains("!paper"))
             {
@@ -46,7 +59,7 @@ namespace dydutility
             }
             else if (chatLine.Contains("!dog"))
             {
-                SendChatMessage("^7dog^3 - decent and usually fair player");
+                SendChatMessage("^7dog^3 - decent merc, plays efficiently and makes rampage while online.");
             }
             else if (chatLine.Contains("!creature"))
             {
@@ -64,13 +77,13 @@ namespace dydutility
             {
                 SendChatMessage("^1K^0althani^6 - expert at joining one clan/faction multiple times. Low tier but fair player");
             }
+            else if(chatLine.Contains("!peteri"))
+            {
+                SendChatMessage("^4Peteri^1 - versatile player, kinda smart for his age, his account username means 'hrabin is dick'");
+            }
             else if (chatLine.Contains("!pete"))
             {
                 SendChatMessage("^7pete^4`^3 - ridiculous player, funniest guy on server. Epic troll and very good merc");
-            }
-            else if (chatLine.Contains("!capricorn"))
-            {
-                SendChatMessage("^7The Capric^1o^7rn^3 - another chat flooder, definitely not one of my favorite players");
             }
             else if (chatLine.Contains("!sonic"))
             {
@@ -94,15 +107,15 @@ namespace dydutility
             }
             else if (chatLine.Contains("!serbip1"))
             {
-                SendChatMessage("^7Serbip1^1 - bad saberist, pretty smart young guy");
+                SendChatMessage("^7Serbip1^1 - bad saberist, better at force, pretty smart young guy, comes from Gypsylandia");
             }
             else if (chatLine.Contains("!swagrez"))
             {
                 SendChatMessage("^7swagrez^4 - occasional jerk admin, complains about maps and many other stuff, bigmouth");
             }
-            else if (chatLine.Contains("!zenonk"))
+            else if (chatLine.Contains("!xenonk"))
             {
-                SendChatMessage("^4Z^7enonk^3 - ex-leader of apprentices, saber amateur with fair behavior. He died - cannot be seen on server");
+                SendChatMessage("^4X^0enonk^3 - ex-leader of apprentices, moderate saberist, friendly and intuitive. Lives in safe country");
             }
             else if (chatLine.Contains("!elite"))
             {
@@ -110,7 +123,7 @@ namespace dydutility
             }
             else if (chatLine.Contains("!michael"))
             {
-                SendChatMessage("^5Michael^7 - low tier player, kid who tried to get me banned for his own failures");
+                SendChatMessage("^5Michael^7 - low tier player, annoying as he cannot behave serious even for a short while");
             }
             else if (chatLine.Contains("!paweli"))
             {
@@ -140,21 +153,17 @@ namespace dydutility
             {
                 SendChatMessage("^7k!tty^4 - this player is same as arsa imo, both in skills and behavior. Hunting new players makes him happy");
             }
-            else if (chatLine.Contains("!darthmaull"))
-            {
-                SendChatMessage("^3darthmaull^1 - appeared out of nowhere with mediocre saber skills. Don't know what else to say.");
-            }
             else if (chatLine.Contains("!cyanide"))
             {
                 SendChatMessage("^6CYANIDE^3 - total horse shit, iq and mentality worse than lugormod stereotypal");
             }
             else if (chatLine.Contains("!animal"))
             {
-                SendChatMessage("^0Anim^1@^0l^3 - recently inactive geek player, rather weak saberist, runs a faction");
+                SendChatMessage("^0Anim^1@^0l^3 - recently inactive geek player, intermediate saberist, runs a faction");
             }
             else if (chatLine.Contains("!nakiner"))
             {
-                SendChatMessage("^6n^7akiner - funny and helpful player, however suffering from RUtard syndrome");
+                SendChatMessage("^6n^7akiner - helpful player, but suffering from RUtard syndrome. Decompiled my utility and made 'putin utility' copy");
             }
             else if (chatLine.Contains("!jamie"))
             {
@@ -164,21 +173,49 @@ namespace dydutility
             {
                 SendChatMessage("^1gog^2 - Very good player with typical annoying polish attutude");
             }
-            else if (chatLine.Contains("!petri"))
-            {
-                SendChatMessage("^4dsbr^7_petri^3 - Average player, czech young guy, rather smart");
-            }
             else if (chatLine.Contains("!kasme"))
             {
-                SendChatMessage("^7kasme^5 - Retarded as hell, spammer kid and wannabe admin with 'intelectually_disabled' privileges");
+                SendChatMessage("^7kasme^5 - Retarded as hell, spammer kid and wannabe admin with 'intelectually_disabled' privileges.");
             }
             else if (chatLine.Contains("!raptor"))
             {
-                SendChatMessage("^7RAPTOR^2 - Average player with super high self esteem.");
+                SendChatMessage("^7RAPTOR^4 - known also as Source - average player + good strafer with super high self esteem.");
             }
             else if (chatLine.Contains("!ryder"))
             {
                 SendChatMessage("^0RYDER^1 - Banned excessive lamer. Spawnrapist, griphunter, late night ninja newbiekiller.");
+            }
+            else if (chatLine.Contains("!snow"))
+            {
+                SendChatMessage("^2§^0now^6 - best dual saber fighter, behaves as if pretending to be very mature");
+            }
+            else if (chatLine.Contains("!boc"))
+            {
+                SendChatMessage("^7boc - good merc and lamer spamming 'sit dog', at first I thought bob and boc is same player");
+            }
+            else if (chatLine.Contains("!god potato"))
+            {
+                SendChatMessage("^7god potato^3 - God of the potatoes");
+            }
+            else if (chatLine.Contains("!motorku"))
+            {
+                SendChatMessage("^7motorku^5 - rrrr rrr wrrrr");
+            }
+            else if (chatLine.Contains("!gary"))
+            {
+                SendChatMessage("gary - that word means 'pots' in polish language");
+            }
+            else if (chatLine.Contains("!stojka"))
+            {
+                SendChatMessage("100jka - 'sto' means 100 in polish language. I cant tell much more about that guy");
+            }
+            else if (chatLine.Contains("!bushido"))
+            {
+                SendChatMessage("^7bushido - Japanese term for the samurai way of life, loosely analogous to the concept of chivalry in Europe");
+            }
+            else if (chatLine.Contains("!antoni macierewicz"))
+            {
+                SendChatMessage("en.wikipedia.org/wiki/Antoni_Macierewicz");
             }
             else if (chatLine.Contains("!joke"))
             {
@@ -335,6 +372,91 @@ namespace dydutility
                 cmdFound = false;
 
             return cmdFound;
+        }
+
+
+        private string EngToNoob(string text)
+        {
+            if (text == "")
+                return "";
+
+            string modifiedInput = Regex.Replace(text, "(too)|(to)", "2", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "(fore)|(for)", "4", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "(oo)", "00", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "(be)", "b", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "(are)", "r", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "(you)", "u", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "(please)", "plz", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "(people)", "ppl", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "(really)", "rly", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "(have)", "haz", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "(know)", "no", RegexOptions.IgnoreCase);
+            modifiedInput = Regex.Replace(modifiedInput, "s", "z", RegexOptions.IgnoreCase);
+
+            bool allCaps = false;
+            bool lolAdded = false;
+
+            if (char.ToLower(modifiedInput[0]) == 'h')
+            {
+                allCaps = true;
+                modifiedInput = modifiedInput.ToUpper();
+            }
+
+            if (char.ToLower(modifiedInput[0]) == 'w')
+            {
+                lolAdded = true;
+                modifiedInput = modifiedInput.Insert(0, "LOL ");
+            }
+
+            while (true)
+            {
+                int index = modifiedInput.IndexOfAny(new char[] { '.', ',', '\'' });
+                if (index != -1)
+                    modifiedInput = modifiedInput.Remove(index, 1);
+                else
+                    break;
+            }
+
+            string strippedInput = modifiedInput;
+
+            while (true)
+            {
+                int index = strippedInput.IndexOfAny(new char[] { '!', '?' });
+                if (index != -1)
+                    strippedInput = strippedInput.Remove(index, 1);
+                else
+                    break;
+            }
+
+            if (strippedInput.Length >= 32)
+                modifiedInput = modifiedInput.Insert(lolAdded ? 4 : 0, "OMG ");
+
+            string[] words = modifiedInput.Split(' ');
+
+            string questionMarkTemplate = "";
+            string exclamationMarkTemplate = "";
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                questionMarkTemplate += "?";
+                exclamationMarkTemplate += (i % 2 == 0) ? "!" : "1";
+            }
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                words[i] = words[i].Replace("!", exclamationMarkTemplate);
+                words[i] = words[i].Replace("?", questionMarkTemplate);
+            }
+
+            if (!allCaps)
+                for (int i = 0; i < words.Length; i++)
+                {
+                    if (i % 2 == 1)
+                        words[i] = words[i].ToUpper();
+                }
+
+            modifiedInput = string.Join(" ", words);
+            return modifiedInput;
         }
     }
 }
